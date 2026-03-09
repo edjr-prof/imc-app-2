@@ -11,27 +11,21 @@ export default function App() {
     const [imc, setIMC] = useState<number | null>(null);
     const [classificacao, setClassificacao] = useState<string | null>(null);
 
+    function validarCampos() {
+        
+    }
+
     function calcularIMC(){
         let imcCalculado = parseFloat(peso) / (parseFloat(altura)*parseFloat(altura));
-        
         setIMC(imcCalculado);
-        
-        if(imcCalculado < 18.5){
-            setClassificacao("Abaixo do peso");
-        }else if(imcCalculado < 25){
-            setClassificacao("Peso normal");
-        }else if(imcCalculado < 30){
-            setClassificacao("Sobrepeso");
-        }else{
-            setClassificacao("Obeso");
-        }
     }
     
     return (
         <View style={styles.container}>
             <Topo/>
-
             <View style={styles.form}>
+                <Text>Preencha o peso e a altura</Text>
+
                 <Text style={styles.label}>Peso</Text>
                 <TextInput style={styles.input} onChangeText={setPeso}></TextInput>
                 
@@ -43,7 +37,9 @@ export default function App() {
                 </TouchableOpacity>
 
                 //PROPS
-                <Resultado resultadoIMC={imc} />
+                { imc != null &&(
+                    <Resultado resultadoIMC={imc} />
+                )}
             </View>
             <StatusBar style="auto" />
         </View>
